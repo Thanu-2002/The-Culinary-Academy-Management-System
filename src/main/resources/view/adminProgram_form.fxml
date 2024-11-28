@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.orm_final_corsework1.controller.AdminProgramFormController">
+   <children>
+      <Label layoutX="410.0" layoutY="59.0" prefHeight="31.0" prefWidth="304.0" text="Culinary Programs Details View">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Line endX="169.0" layoutX="533.0" layoutY="90.0" startX="-123.0" />
+      <Label layoutX="46.0" layoutY="137.0" prefHeight="27.0" prefWidth="98.0" text="Program ID">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="218.0" layoutY="137.0" prefHeight="27.0" prefWidth="122.0" text="Program name">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="572.0" layoutY="137.0" prefHeight="27.0" prefWidth="74.0" text="Duration">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="714.0" layoutY="137.0" prefHeight="27.0" prefWidth="74.0" text="Fee (LKR)">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtProgramID" layoutX="46.0" layoutY="167.0" onAction="#txtSearchOnAction" onKeyReleased="#txtProgramIDOnKeyReleased" prefHeight="7.0" prefWidth="158.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtProgramName" layoutX="218.0" layoutY="167.0" prefHeight="30.0" prefWidth="344.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtDuration" layoutX="572.0" layoutY="167.0" prefHeight="30.0" prefWidth="130.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtFee" layoutX="714.0" layoutY="167.0" prefHeight="30.0" prefWidth="230.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <JFXButton layoutX="46.0" layoutY="51.0" onAction="#btnBackOnAction" prefHeight="39.0" prefWidth="89.0" style="-fx-background-color: #2980b9;" text="Back" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="tblCulinaryPrograms" layoutX="146.0" layoutY="286.0" prefHeight="269.0" prefWidth="791.0">
+         <columns>
+            <TableColumn fx:id="colProgramID" prefWidth="121.0" text="Program ID" />
+            <TableColumn fx:id="colProgramName" prefWidth="381.0" text="Program name" />
+            <TableColumn fx:id="colDuration" prefWidth="121.0" text="Durartion" />
+            <TableColumn fx:id="colFee" prefWidth="167.0" text="Fee (LKR)" />
+         </columns>
+      </TableView>
+      <JFXButton layoutX="85.0" layoutY="217.0" onAction="#btnClearOnAction" prefHeight="30.0" prefWidth="81.0" style="-fx-background-color: #48dbfb;" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

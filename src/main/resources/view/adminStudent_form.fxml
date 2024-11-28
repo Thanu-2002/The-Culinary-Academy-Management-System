@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.orm_final_corsework1.controller.adminStudentController">
+   <children>
+      <Label layoutX="438.0" layoutY="27.0" prefHeight="31.0" prefWidth="193.0" text="Student Details View">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Line endX="104.0" layoutX="523.0" layoutY="61.0" startX="-82.0" />
+      <Label layoutX="576.0" layoutY="109.0" prefHeight="27.0" prefWidth="47.0" text="Date:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="253.0" layoutY="109.0" prefHeight="1.0" prefWidth="89.0" text="Student ID">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="44.0" layoutY="147.0" prefHeight="27.0" prefWidth="89.0" text="First name">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="253.0" layoutY="147.0" prefHeight="27.0" prefWidth="89.0" text="Last name">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="770.0" layoutY="146.0" prefHeight="27.0" prefWidth="132.0" text="Mobile number">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="463.0" layoutY="147.0" prefHeight="27.0" prefWidth="47.0" text="Email">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="44.0" layoutY="203.0" prefHeight="27.0" prefWidth="70.0" text="Address">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="538.0" layoutY="230.0" prefHeight="27.0" prefWidth="124.0" text="Program name:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtStudentID" layoutX="352.0" layoutY="108.0" onAction="#txtSearchOnAction" onKeyReleased="#txtStudentIDOnKeyReleased" prefHeight="7.0" prefWidth="158.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lblDate" layoutX="635.0" layoutY="109.0" prefHeight="27.0" prefWidth="142.0" text="DATE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtFirstname" layoutX="44.0" layoutY="173.0" prefHeight="1.0" prefWidth="193.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtLastname" layoutX="253.0" layoutY="173.0" prefHeight="1.0" prefWidth="193.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtEmail" layoutX="463.0" layoutY="173.0" prefHeight="30.0" prefWidth="291.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtAddress" layoutX="44.0" layoutY="230.0" prefHeight="30.0" prefWidth="205.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtMobileNumber" layoutX="770.0" layoutY="172.0" prefHeight="30.0" prefWidth="194.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <JFXButton layoutX="25.0" layoutY="23.0" onAction="#btnBackOnAction" prefHeight="39.0" prefWidth="89.0" style="-fx-background-color: #2980b9;" text="Back" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="tblStudents" layoutX="9.0" layoutY="311.0" prefHeight="250.0" prefWidth="962.0">
+         <columns>
+            <TableColumn fx:id="colStudentID" prefWidth="84.0" text="Student ID" />
+            <TableColumn fx:id="colDate" prefWidth="104.0" text="Date" />
+            <TableColumn fx:id="colFirstname" prefWidth="99.0" text="First name" />
+            <TableColumn fx:id="colLastname" prefWidth="105.0" text="Last name" />
+            <TableColumn fx:id="colEmail" prefWidth="116.800048828125" text="Email" />
+            <TableColumn fx:id="colMobileNumber" prefWidth="129.60003662109375" text="Mobile No." />
+            <TableColumn fx:id="colAddress" prefWidth="148.00006103515625" text="Address" />
+            <TableColumn fx:id="colSelectedProgram" prefWidth="213.59991455078125" text="Selected Program" />
+         </columns>
+      </TableView>
+      <Label fx:id="lblProgramName" layoutX="672.0" layoutY="232.0" prefHeight="27.0" prefWidth="335.0" text="PROGRAM">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="74.0" layoutY="267.0" onAction="#btnClearOnAction" prefHeight="30.0" prefWidth="81.0" style="-fx-background-color: #48dbfb;" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXComboBox fx:id="cmbSelectedProgram" layoutX="431.0" layoutY="230.0" onAction="#cmbSelectedProgramOnAction" prefHeight="27.0" prefWidth="89.0" visibleRowCount="5" />
+      <Label layoutX="258.0" layoutY="230.0" prefHeight="27.0" prefWidth="169.0" text="Selected program ID">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

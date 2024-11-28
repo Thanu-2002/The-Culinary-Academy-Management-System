@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.orm_final_corsework1.controller.ProgramController">
+   <children>
+      <Label layoutX="413.0" layoutY="36.0" prefHeight="31.0" prefWidth="221.0" text="Programs" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <Line endX="111.0" layoutX="476.0" layoutY="67.0" startX="-110.0" />
+      <Label layoutX="36.0" layoutY="114.0" prefHeight="27.0" prefWidth="98.0" text="ID">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="208.0" layoutY="114.0" prefHeight="27.0" prefWidth="122.0" text="Program name">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="549.0" layoutY="114.0" prefHeight="27.0" prefWidth="74.0" text="Duration">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="695.0" layoutY="114.0" prefHeight="27.0" prefWidth="74.0" text="Payment">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtProgramID" layoutX="36.0" layoutY="144.0" onAction="#txtSearchOnAction" onKeyReleased="#txtProgramIDOnKeyReleased" prefHeight="7.0" prefWidth="158.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtProgramName" layoutX="208.0" layoutY="144.0" prefHeight="30.0" prefWidth="318.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtDuration" layoutX="551.0" layoutY="144.0" onKeyReleased="#txtDurationOnKeyReleased" prefHeight="30.0" prefWidth="130.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtFee" layoutX="695.0" layoutY="144.0" onKeyReleased="#txtFeeOnKeyReleased" prefHeight="30.0" prefWidth="262.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <JFXButton layoutX="258.0" layoutY="206.0" onAction="#btnAddOnAction" prefHeight="30.0" prefWidth="81.0" style="-fx-background-color: #1dd1a1;" text="Add" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="394.0" layoutY="205.0" onAction="#btnUpdateOnAction" prefHeight="30.0" prefWidth="81.0" style="-fx-background-color: #ff9f43;" text="Update" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="531.0" layoutY="206.0" onAction="#btnDeleteOnAction" prefHeight="30.0" prefWidth="81.0" style="-fx-background-color: #ee5253;" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="678.0" layoutY="207.0" onAction="#btnClearOnAction" prefHeight="30.0" prefWidth="81.0" style="-fx-background-color: #48dbfb;" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="36.0" layoutY="32.0" onAction="#btnBackOnAction" prefHeight="39.0" prefWidth="89.0" style="-fx-background-color: #2980b9;" text="Back" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="tblCulinaryPrograms" layoutX="63.0" layoutY="263.0" prefHeight="270.0" prefWidth="880.0">
+         <columns>
+            <TableColumn fx:id="colProgramID" prefWidth="121.0" text="ID" />
+            <TableColumn fx:id="colProgramName" prefWidth="322.40003967285156" text="Program name" />
+            <TableColumn fx:id="colDuration" prefWidth="180.79998779296875" text="Durartion" />
+            <TableColumn fx:id="colFee" prefWidth="252.00006103515625" text="Payment" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
