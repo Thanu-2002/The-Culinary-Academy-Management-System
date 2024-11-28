@@ -6,18 +6,15 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.orm_final_corsework1.controller.AdminProgramFormController">
    <children>
-      <Label layoutX="410.0" layoutY="59.0" prefHeight="31.0" prefWidth="304.0" text="Culinary Programs Details View">
+      <Label layoutX="262.0" layoutY="53.0" prefHeight="35.0" prefWidth="414.0" text="Culinary Programs Details View">
          <font>
-            <Font size="21.0" />
+            <Font size="24.0" />
          </font>
       </Label>
-      <Line endX="169.0" layoutX="533.0" layoutY="90.0" startX="-123.0" />
       <Label layoutX="46.0" layoutY="137.0" prefHeight="27.0" prefWidth="98.0" text="Program ID">
          <font>
             <Font size="18.0" />

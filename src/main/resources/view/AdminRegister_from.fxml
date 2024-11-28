@@ -8,25 +8,25 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="node" prefHeight="442.0" prefWidth="628.0" style="-fx-background-color: lightgreen;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.orm_final_corsework1.controller.AdminRegisterFormController">
+<AnchorPane fx:id="node" prefHeight="442.0" prefWidth="560.0" style="-fx-background-color: lightgreen;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.orm_final_corsework1.controller.AdminRegisterFormController">
    <children>
-      <TextField fx:id="txtUserName" layoutX="191.0" layoutY="105.0" onAction="#txtUserNameOnAction" prefHeight="27.0" prefWidth="227.0" />
-      <Button fx:id="btnRegister" layoutX="255.0" layoutY="350.0" mnemonicParsing="false" onAction="#RegisterbtnOnAction" prefHeight="40.0" prefWidth="117.0" style="-fx-background-color: green;" text="Register" textFill="#f2eded">
+      <TextField fx:id="txtUserName" layoutX="162.0" layoutY="105.0" onAction="#txtUserNameOnAction" prefHeight="27.0" prefWidth="227.0" />
+      <Button fx:id="btnRegister" layoutX="226.0" layoutY="350.0" mnemonicParsing="false" onAction="#RegisterbtnOnAction" prefHeight="40.0" prefWidth="117.0" style="-fx-background-color: green;" text="Register" textFill="#f2eded">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <Label layoutX="191.0" layoutY="83.0" text="UserName" />
-      <Label layoutX="191.0" layoutY="167.0" text="Password" />
-      <TextField fx:id="txtEmail" layoutX="191.0" layoutY="266.0" onAction="#txtEmailOnAction" prefHeight="27.0" prefWidth="227.0" />
-      <Label layoutX="191.0" layoutY="244.0" text="Email" />
-      <PasswordField fx:id="txtPassword" layoutX="191.0" layoutY="189.0" onAction="#txtPasswordOnAction" prefHeight="26.0" prefWidth="227.0" />
-      <Button fx:id="btnBack" layoutX="34.0" layoutY="29.0" mnemonicParsing="false" onAction="#btnBackOnAction" text="Button" />
-      <Label layoutX="218.0" layoutY="9.0" prefHeight="40.0" prefWidth="198.0" text="Admin Register">
+      <Label layoutX="162.0" layoutY="83.0" text="UserName" />
+      <Label layoutX="162.0" layoutY="167.0" text="Password" />
+      <TextField fx:id="txtEmail" layoutX="162.0" layoutY="266.0" onAction="#txtEmailOnAction" prefHeight="27.0" prefWidth="227.0" />
+      <Label layoutX="162.0" layoutY="244.0" text="Email" />
+      <PasswordField fx:id="txtPassword" layoutX="162.0" layoutY="189.0" onAction="#txtPasswordOnAction" prefHeight="26.0" prefWidth="227.0" />
+      <Button fx:id="btnBack" layoutX="80.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnBackOnAction" prefHeight="26.0" prefWidth="56.0" text="Back" />
+      <Label layoutX="203.0" layoutY="9.0" prefHeight="40.0" prefWidth="198.0" text="Admin Register">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Text layoutX="467.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN ID:" wrappingWidth="64.00002441406241" />
-      <Label fx:id="lblAdminId" layoutX="531.0" layoutY="21.0" prefHeight="18.0" prefWidth="64.0" />
+      <Text layoutX="420.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN ID:" wrappingWidth="64.00002441406241" />
+      <Label fx:id="lblAdminId" layoutX="484.0" layoutY="21.0" prefHeight="18.0" prefWidth="64.0" />
    </children>
 </AnchorPane>
