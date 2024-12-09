@@ -26,12 +26,12 @@ public class AdminDTO {
 
     private String adminPassword;
 
-//    @ManyToOne(cascade = CascadeType.ALL)// owners end to Students
-//    @JoinColumn(name = "student_ID")
-//    private Students students;
-//
-//    @ManyToOne(cascade = CascadeType.ALL)// owners end to Culinary_Programs
-//    @JoinColumn(name = "program_ID")
-//    private Culinary_Programs culinaryPrograms;
+    @ManyToOne(cascade = CascadeType.ALL)// owners end to Students
+    @JoinColumn(name = "student_ID")
+    private Students students;
+
+    @ManyToOne(cascade = CascadeType.ALL)// owners end to Culinary_Programs
+    @JoinColumn(name = "program_ID")
+    private Culinary_Programs culinaryPrograms;
 
 }

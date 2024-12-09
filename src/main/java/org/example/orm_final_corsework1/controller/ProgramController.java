@@ -21,13 +21,14 @@ import org.example.orm_final_corsework1.entity.Admin;
 import org.example.orm_final_corsework1.entity.Admission_Coordinator;
 import org.example.orm_final_corsework1.entity.Students;
 import org.example.orm_final_corsework1.tm.CulinaryProgramsTM;
-import org.example.orm_final_corsework1.util.CulinaryProgramRegex;
-import org.example.orm_final_corsework1.util.CulinaryProgramTextField;
+import org.example.orm_final_corsework1.util.Regex;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.example.orm_final_corsework1.util.TextField.*;
 
 public class ProgramController {
     public AnchorPane root;
@@ -44,8 +45,54 @@ public class ProgramController {
     Culinary_programBO culinaryProgramsBO = (Culinary_programBO) BOFactory.getBoFactory().getBo(BOFactory.BOTypes.CULINARY_PROGRAM);
 
     public void initialize(){
+        txtProgramID.setEditable(false);
         setCellValueFactory();
+        getCurrentProgramID();
         loadAllCulinaryPrograms();
+
+
+        tblCulinaryPrograms.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                populateFields(newValue);
+            }
+        });
+    }
+
+    private void populateFields(CulinaryProgramsTM selectedProgram) {
+        txtProgramID.setText(selectedProgram.getProgramID());
+        txtProgramName.setText(selectedProgram.getProgramName());
+        txtDuration.setText(selectedProgram.getDuration());
+        txtFee.setText(selectedProgram.getFee());
+    }
+
+    private void getCurrentProgramID() {
+        try {
+
+            String currentStudentID = culinaryProgramsBO.getCurrentProgramID();
+
+            String nextStudentID = generateNextStudentID(currentStudentID);
+
+            txtProgramID.setText(nextStudentID);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String generateNextStudentID(String currentStudentID) {
+
+        if (currentStudentID != null) {
+            String[] split = currentStudentID.split("CA");
+            int idNum = Integer.parseInt(split[1]);
+            if (idNum < 999) {
+                idNum++;
+                return "CA" + String.format("%04d", idNum);
+            } else {
+                return "Error: Maximum bill ID reached (CA9999)";
+            }
+        }
+        return "CA0001";
+
     }
 
     public void btnAddOnAction(ActionEvent event) {
@@ -58,22 +105,32 @@ public class ProgramController {
         List<Admission_Coordinator> admissionCoordinators = new ArrayList<>();
         List<Admin>admins = new ArrayList<>();
 
-        try {
-            Culinary_ProgramsDTO culinaryProgramsDTO = new Culinary_ProgramsDTO(programID,programName,duration,fee,students,admissionCoordinators,admins);
+        if (isValidStudent()){
+            try {
+                Culinary_ProgramsDTO culinaryProgramsDTO = new Culinary_ProgramsDTO(programID,programName,duration,fee,students,admissionCoordinators,admins);
 
-            boolean isSaved = culinaryProgramsBO.add(culinaryProgramsDTO);
+                boolean isSaved = culinaryProgramsBO.add(culinaryProgramsDTO);
 
-            if(isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION, "Program details added!").show();
-                clearFields();
-            }else {
-                new Alert(Alert.AlertType.ERROR, "Error in add program details!").show();
+                if(isSaved){
+                    new Alert(Alert.AlertType.CONFIRMATION, "Program details added!").show();
+                    clearFields();
+                    getCurrentProgramID();
+
+                }else {
+                    new Alert(Alert.AlertType.ERROR, "Error in add program details!").show();
+                }
+
+            }catch (SQLException e){
+                throw new RuntimeException(e);
             }
+            loadAllCulinaryPrograms();
 
-        }catch (SQLException e){
-            throw new RuntimeException(e);
+
+        } else {
+            new Alert(Alert.AlertType.WARNING,"Please Enter All Fields !!").show();
         }
-        loadAllCulinaryPrograms();
+
+        getCurrentProgramID();
 
 
     }
@@ -105,6 +162,7 @@ public class ProgramController {
         }
         loadAllCulinaryPrograms();
 
+        getCurrentProgramID();
 
 
     }
@@ -135,10 +193,14 @@ public class ProgramController {
             throw new RuntimeException(e);
         }
         loadAllCulinaryPrograms();
+        getCurrentProgramID();
+
     }
 
     public void btnClearOnAction(ActionEvent event) {
         clearFields();
+        getCurrentProgramID();
+loadAllCulinaryPrograms();
     }
 
     public void clearFields(){
@@ -207,14 +269,23 @@ public class ProgramController {
     }
 
     public void txtProgramIDOnKeyReleased(KeyEvent keyEvent) {
-        CulinaryProgramRegex.setTextColour(CulinaryProgramTextField.PROGRAM_ID,txtProgramID);
+        Regex.setTextColor(PROGRAMID,txtProgramID);
+
     }
 
     public void txtDurationOnKeyReleased(KeyEvent keyEvent) {
-        CulinaryProgramRegex.setTextColour(CulinaryProgramTextField.DURATION,txtDuration);
+        Regex.setTextColor(MONTH,txtDuration);
     }
 
     public void txtFeeOnKeyReleased(KeyEvent keyEvent) {
-        CulinaryProgramRegex.setTextColour(CulinaryProgramTextField.FEE,txtFee);
+        Regex.setTextColor(PRICE,txtFee);
+    }
+
+    public boolean isValidStudent() {
+        if (!Regex.setTextColor(org.example.orm_final_corsework1.util.TextField.PROGRAMID, txtProgramID)) return false;
+        if (!Regex.setTextColor(org.example.orm_final_corsework1.util.TextField.PRICE,txtFee )) return false;
+        if (!Regex.setTextColor(org.example.orm_final_corsework1.util.TextField.MONTH, txtDuration)) return false;
+
+        return true;
     }
 }

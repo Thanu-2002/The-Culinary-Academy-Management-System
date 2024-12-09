@@ -17,7 +17,7 @@
          </font></Button>
       <Label layoutX="149.0" layoutY="94.0" text="UserName" />
       <Label layoutX="149.0" layoutY="178.0" text="Password" />
-      <PasswordField fx:id="txtPassword" layoutX="149.0" layoutY="200.0" onAction="#txtPasswordOnAction" prefHeight="26.0" prefWidth="227.0" />
+      <PasswordField fx:id="txtPassword" layoutX="149.0" layoutY="200.0" onAction="#txtPasswordOnAction" prefHeight="26.0" prefWidth="258.0" />
       <Button fx:id="btnBack" layoutX="65.0" layoutY="26.0" mnemonicParsing="false" onAction="#btnBackOnAction" style="-fx-background-color: lightgrey;" text="Back" />
       <Label layoutX="167.0" layoutY="20.0" prefHeight="40.0" prefWidth="221.0" text="Coordinator Register">
          <font>
@@ -26,6 +26,5 @@
       </Label>
       <Text layoutX="418.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN ID:" wrappingWidth="64.00002441406241" />
       <Label fx:id="lblAdminId" layoutX="483.0" layoutY="31.0" prefHeight="18.0" prefWidth="64.0" />
-      <TextField fx:id="txtPasswordVisible" layoutX="150.0" layoutY="201.0" prefHeight="26.0" prefWidth="258.0" />
    </children>
 </AnchorPane>

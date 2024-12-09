@@ -18,8 +18,6 @@ import org.example.orm_final_corsework1.bo.custom.StudentsBO;
 import org.example.orm_final_corsework1.dto.Culinary_ProgramsDTO;
 import org.example.orm_final_corsework1.dto.StudentsDTO;
 import org.example.orm_final_corsework1.tm.StudentsTM;
-import org.example.orm_final_corsework1.util.StudentRegex;
-import org.example.orm_final_corsework1.util.StudentTextField;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -103,7 +101,7 @@ public class adminStudentController {
 
     @FXML
     void btnClearOnAction(ActionEvent event) {
-clearFields();
+        clearFields();
     }
     private void loadAllStudents(){
         ObservableList<StudentsTM> obList = FXCollections.observableArrayList();
@@ -223,7 +221,6 @@ clearFields();
 
     @FXML
     void txtStudentIDOnKeyReleased(KeyEvent event) {
-        StudentRegex.setTextColour(StudentTextField.STUDENT_ID,txtStudentID);
 
     }
 

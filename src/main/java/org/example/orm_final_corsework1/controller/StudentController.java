@@ -17,14 +17,15 @@ import org.example.orm_final_corsework1.entity.Admin;
 import org.example.orm_final_corsework1.entity.Admission_Coordinator;
 import org.example.orm_final_corsework1.entity.Culinary_Programs;
 import org.example.orm_final_corsework1.tm.StudentsTM;
-import org.example.orm_final_corsework1.util.StudentRegex;
-import org.example.orm_final_corsework1.util.StudentTextField;
+import org.example.orm_final_corsework1.util.Regex;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static org.example.orm_final_corsework1.util.TextField.*;
 
 public class StudentController {
 
@@ -87,12 +88,38 @@ public class StudentController {
     StudentsBO studentsBO = (StudentsBO) BOFactory.getBoFactory().getBo(BOFactory.BOTypes.STUDENTS);
 
     public void initialize(){
+        txtStudentID.setEditable(false);
         setCellValueFactory();
         setDate();
         getCurrentStudentID();
         getProgramID();
         loadAllStudents();
+
+        // Add listener for row selection
+        tblStudents.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                populateFields(newSelection);
+            }
+        });
     }
+
+
+
+
+
+// Method to populate fields when a row is selected
+private void populateFields(StudentsTM selectedStudent) {
+    txtStudentID.setText(selectedStudent.getStudentID());
+    txtFirstname.setText(selectedStudent.getFirstName());
+    txtLastname.setText(selectedStudent.getLastName());
+    txtEmail.setText(selectedStudent.getEmail());
+    txtMobileNumber.setText(String.valueOf(selectedStudent.getMobileNumber()));
+    txtAddress.setText(selectedStudent.getAddress());
+    lblProgramName.setText(selectedStudent.getSelectedCourse());
+}
+
+//    lasasasas
+
     private void getProgramID() {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
@@ -133,23 +160,30 @@ public class StudentController {
         List<Admission_Coordinator> admissionCoordinators = new ArrayList<>();
         List<Admin> admins = new ArrayList<>();
 
-        try{
-            StudentsDTO studentsDTO = new StudentsDTO(studentID,date,firstName,lastName,email,mobileNumber,address,selectedCourse,Program_ID,admissionCoordinators,admins);
 
-            boolean isSaved = studentsBO.add(studentsDTO);
+        if (isValidStudent()){
+            try{
+                StudentsDTO studentsDTO = new StudentsDTO(studentID,date,firstName,lastName,email,mobileNumber,address,selectedCourse,Program_ID,admissionCoordinators,admins);
 
-            if(isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION, "Student details added!").show();
-                clearFields();
-                getCurrentStudentID();
-            }else {
-                new Alert(Alert.AlertType.ERROR, "Error in add student details!").show();
+                boolean isSaved = studentsBO.add(studentsDTO);
+
+                if(isSaved){
+                    new Alert(Alert.AlertType.CONFIRMATION, "Student details added!").show();
+                    clearFields();
+                    getCurrentStudentID();
+                }else {
+                    new Alert(Alert.AlertType.ERROR, "Error in add student details!").show();
+                }
+
+            }catch (SQLException e){
+                throw new RuntimeException(e);
             }
-
-        }catch (SQLException e){
-            throw new RuntimeException(e);
+            loadAllStudents();
+        } else {
+            new Alert(Alert.AlertType.WARNING,"Please Enter All Fields !!").show();
         }
-        loadAllStudents();
+
+
 
     }
 
@@ -273,7 +307,7 @@ public class StudentController {
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) {
+    void btnUpdateOnAction(ActionEvent event) throws SQLException {
         String studentID = txtStudentID.getText();
         Date date = java.sql.Date.valueOf(lblDate.getText());
         String firstName = txtFirstname.getText();
@@ -287,36 +321,49 @@ public class StudentController {
         newProgram.setProgramID((String) cmbSelectedProgram.getValue());
 
         // Retrieve the existing student data
-        try {
             StudentsDTO existingStudent = studentsBO.searchByID(studentID);
             if (existingStudent != null) {
                 // Combine existing selected course with the new one
                 String existingCourses = existingStudent.getSelectedCourse();
                 String newSelectedCourse = lblProgramName.getText();
 
-                // Assuming courses are separated by commas, adjust as needed
-                String combinedCourses = existingCourses + ", " + newSelectedCourse;
+                if (cmbSelectedProgram.getValue()==null){
+                    StudentsDTO studentsDTO = new StudentsDTO(studentID, date, firstName, lastName, email,
+                            mobileNumber, address, existingCourses,null, null, null);
+
+                    boolean isUpdated = studentsBO.update(studentsDTO);
+
+                    if (isUpdated) {
+                        new Alert(Alert.AlertType.CONFIRMATION, "Student details updated!").show();
+                        clearFields();
+                        getCurrentStudentID();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Error in updating student details!").show();
+                    }
+                }else {
+                    // Assuming courses are separated by commas, adjust as needed
+                    String combinedCourses = existingCourses + ", " + newSelectedCourse;
 
 
-                StudentsDTO studentsDTO = new StudentsDTO(studentID, date, firstName, lastName, email,
-                        mobileNumber, address, combinedCourses,
-                        newProgram, null, null);
+                    StudentsDTO studentsDTO = new StudentsDTO(studentID, date, firstName, lastName, email,
+                            mobileNumber, address, combinedCourses,
+                            newProgram, null, null);
 
-                boolean isUpdated = studentsBO.update(studentsDTO);
+                    boolean isUpdated = studentsBO.update(studentsDTO);
 
-                if (isUpdated) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Student details updated!").show();
-                    clearFields();
-                    getCurrentStudentID();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Error in updating student details!").show();
+                    if (isUpdated) {
+                        new Alert(Alert.AlertType.CONFIRMATION, "Student details updated!").show();
+                        clearFields();
+                        getCurrentStudentID();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Error in updating student details!").show();
+                    }
                 }
+                loadAllStudents();
             } else {
                 new Alert(Alert.AlertType.WARNING, "Student not found for update!").show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Error during update: " + e.getMessage()).show();
-        }
+
         loadAllStudents();
     }
 
@@ -337,13 +384,13 @@ public class StudentController {
 
     @FXML
     void txtEmailOnKeyReleased(KeyEvent event) {
-        StudentRegex.setTextColour(StudentTextField.EMAIL,txtEmail);
+        Regex.setTextColor(EMAIL,txtEmail);
 
     }
 
     @FXML
     void txtMobileNumberOnKeyReleased(KeyEvent event) {
-        StudentRegex.setTextColour(StudentTextField.MOBILE_NUMBER,txtMobileNumber);
+        Regex.setTextColor(TEL,txtMobileNumber);
 
     }
 
@@ -394,8 +441,19 @@ public class StudentController {
 
     @FXML
     void txtStudentIDOnKeyReleased(KeyEvent event) {
-        StudentRegex.setTextColour(StudentTextField.STUDENT_ID,txtStudentID);
+        Regex.setTextColor(STUDENTID,txtStudentID);
 
+    }
+
+
+    public boolean isValidStudent() {
+        if (!Regex.setTextColor(org.example.orm_final_corsework1.util.TextField.NAME, txtFirstname)) return false;
+        if (!Regex.setTextColor(org.example.orm_final_corsework1.util.TextField.NAME, txtLastname)) return false;
+        if (!Regex.setTextColor(org.example.orm_final_corsework1.util.TextField.ADDRESS, txtAddress)) return false;
+        if (!Regex.setTextColor(org.example.orm_final_corsework1.util.TextField.TEL, txtMobileNumber)) return false;
+        if (!Regex.setTextColor(EMAIL, txtEmail)) return false;
+
+        return true;
     }
 
 }

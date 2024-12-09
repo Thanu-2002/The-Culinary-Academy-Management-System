@@ -9,5 +9,7 @@ public interface
 Culinary_ProgramsDAO extends CrudDAO<Culinary_Programs> {
 
     public Culinary_Programs searchByID(String programID) throws SQLException;
+    public  String getCurrentProgramID() throws SQLException;
+
 
 }

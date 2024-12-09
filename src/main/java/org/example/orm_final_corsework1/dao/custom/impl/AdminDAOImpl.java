@@ -87,9 +87,9 @@ public class AdminDAOImpl implements AdminDAO {
         Transaction transaction = session.beginTransaction();
 
         Query<Admin> query = session.createQuery("FROM  org.example.orm_final_corsework1.entity.Admin a WHERE a.adminUsername = :adminUsername", Admin.class);
-         query.setParameter("adminUsername",adminUsername);
+        query.setParameter("adminUsername",adminUsername);
 
-         Admin admin = query.uniqueResult();
+        Admin admin = query.uniqueResult();
 
         if (admin != null) {
             String dbPassword = admin.getAdminPassword();
@@ -116,7 +116,7 @@ public class AdminDAOImpl implements AdminDAO {
         Stage stage = (Stage)root.getScene().getWindow();
         stage.setScene(scene);
         stage.setTitle("Dashboard Form");
-}
+    }
 
 
     @Override

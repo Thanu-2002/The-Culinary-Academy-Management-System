@@ -5,12 +5,33 @@ import org.example.orm_final_corsework1.dao.custom.Culinary_ProgramsDAO;
 import org.example.orm_final_corsework1.entity.Culinary_Programs;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class Culinary_ProgramsDAOImpl implements Culinary_ProgramsDAO {
+   @Override
+    public String getCurrentProgramID() throws SQLException {
+        Session session= FactoryConfiguration.getInstance().getSession();
+        Transaction transaction= session.beginTransaction();
 
+
+
+        String hql = "SELECT p.programID FROM org.example.orm_final_corsework1.entity.Culinary_Programs p ORDER BY p.programID DESC";
+
+
+        Query<String> query = session.createQuery(hql, String.class);
+        query.setMaxResults(1);
+
+        String oid = query.uniqueResult();
+
+        transaction.commit();
+        session.close();
+
+
+        return oid;
+    }
 
     @Override
     public boolean add(Culinary_Programs entity) throws SQLException {

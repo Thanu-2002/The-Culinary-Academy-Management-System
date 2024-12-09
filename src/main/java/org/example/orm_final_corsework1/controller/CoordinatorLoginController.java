@@ -48,9 +48,6 @@ public class CoordinatorLoginController {
         txtPasswordVisible.setVisible(false);
         if (txtPassword != null && txtPasswordVisible != null) {
             txtPasswordVisible.textProperty().bindBidirectional(txtPassword.textProperty());
-        }else {
-            txtPasswordVisible.setVisible(false);
-            txtPassword.setVisible(true);
         }
     }
 
@@ -77,12 +74,12 @@ public class CoordinatorLoginController {
     @FXML
     void LoginbtnOnAction(ActionEvent event)throws IOException {
         String admissionCoUsername = txtUserName.getText();
-        String admissionCoPassword = txtPassword.getText();
+        String admissionCoPassword = txtPassword.getText().trim();
 
         try{
             checkCredential(admissionCoUsername,admissionCoPassword,rootnode);
-        }catch(SQLException e){
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }catch(SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
     }
@@ -100,10 +97,7 @@ public class CoordinatorLoginController {
         stage.centerOnScreen();
     }
 
-    @FXML
-    void linkforgetPasswordOnAction(ActionEvent event) {
 
-    }
 
     @FXML
     void txtPasswordOnAction(ActionEvent event) {

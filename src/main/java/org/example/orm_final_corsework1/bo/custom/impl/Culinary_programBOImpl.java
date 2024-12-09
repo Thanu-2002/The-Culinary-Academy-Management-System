@@ -71,4 +71,12 @@ public class Culinary_programBOImpl implements Culinary_programBO {
         return idList;
     }
 
+    @Override
+    public  String getCurrentProgramID() throws SQLException {
+        return  culinaryProgramsDAO.getCurrentProgramID();
+
+    }
+
+
+
 }

@@ -19,4 +19,6 @@ public interface Culinary_programBO extends SuperBO {
     public Culinary_ProgramsDTO searchByID(String programID) throws SQLException;
 
     public List<String> getIds() throws SQLException;
+
+    public  String getCurrentProgramID() throws SQLException;
 }

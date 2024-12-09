@@ -78,16 +78,18 @@ public class CoordinatorRegisterForm {
     void RegisterbtnOnAction(ActionEvent event) throws IOException {
         String admissionCoUserID = lblAdminId.getText();
         String admissionCoUsername = txtUserName.getText();
-        String passwordWithoutEncrypt = txtPassword.getText();
+        String password = txtPassword.getText().trim();
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String admissionCoPassword =passwordEncoder.encode(passwordWithoutEncrypt);
+        String admissionCoPassword =passwordEncoder.encode(password);
 
         try{
             boolean isSaved = saveAdmissionCoordinator(admissionCoUserID,admissionCoUsername,admissionCoPassword);
 
             if (isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION, "AdmissionCoordinator Account Saved! Before exit from this page Make sure you have saved or write down these credentials! ").show();
+            }else {
+                new Alert(Alert.AlertType.ERROR, "AdmissionCoordinator Account Not Saved!").show();
             }
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

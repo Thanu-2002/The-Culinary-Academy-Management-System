@@ -18,8 +18,6 @@ import org.example.orm_final_corsework1.bo.BOFactory;
 import org.example.orm_final_corsework1.bo.custom.Culinary_programBO;
 import org.example.orm_final_corsework1.dto.Culinary_ProgramsDTO;
 import org.example.orm_final_corsework1.tm.CulinaryProgramsTM;
-import org.example.orm_final_corsework1.util.CulinaryProgramRegex;
-import org.example.orm_final_corsework1.util.CulinaryProgramTextField;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -112,7 +110,6 @@ clearFields();
 
     @FXML
     void txtProgramIDOnKeyReleased(KeyEvent event) {
-        CulinaryProgramRegex.setTextColour(CulinaryProgramTextField.PROGRAM_ID,txtProgramID);
 
     }
 

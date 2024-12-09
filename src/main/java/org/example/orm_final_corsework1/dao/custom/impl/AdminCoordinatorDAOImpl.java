@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import org.example.orm_final_corsework1.config.FactoryConfiguration;
 import org.example.orm_final_corsework1.dao.custom.AdminCoordinatorDAO;
 import org.example.orm_final_corsework1.dto.Admission_CoordinatorDTO;
-import org.example.orm_final_corsework1.entity.Admin;
 import org.example.orm_final_corsework1.entity.Admission_Coordinator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -46,10 +45,11 @@ public class AdminCoordinatorDAOImpl implements AdminCoordinatorDAO {
     @Override
     public boolean saveAdmissionCoordinator(String admissionCoUserID, String admissionCoUsername, String admissionCoPassword) throws SQLException {
         Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction=null;
+        Transaction transaction = null;
 
         try {
-            transaction =session.beginTransaction();
+            transaction = session.beginTransaction();
+
             Admission_Coordinator admissionCoordinator = new Admission_Coordinator();
 
             admissionCoordinator.setAdmissionCoUserID(admissionCoUserID);
@@ -60,11 +60,11 @@ public class AdminCoordinatorDAOImpl implements AdminCoordinatorDAO {
             transaction.commit();
             return true;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             if (transaction != null) transaction.rollback();
             e.printStackTrace();
             return false;
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -87,10 +87,7 @@ public class AdminCoordinatorDAOImpl implements AdminCoordinatorDAO {
         Session session= FactoryConfiguration.getInstance().getSession();
         Transaction transaction= session.beginTransaction();
 
-
-
         String hql = "SELECT ac.admissionCoUserID FROM org.example.orm_final_corsework1.entity.Admission_Coordinator ac ORDER BY ac.admissionCoUserID DESC";
-
 
         Query<String> query = session.createQuery(hql, String.class);
         query.setMaxResults(1);
@@ -107,34 +104,39 @@ public class AdminCoordinatorDAOImpl implements AdminCoordinatorDAO {
 
     @Override
     public void checkCredential(String admissionCoUsername,String admissionCoPassword,AnchorPane root) throws SQLException, IOException {
+        Session session = null;
+        Transaction transaction = null;
 
-            Session   session = FactoryConfiguration.getInstance().getSession();
-            Transaction transaction = session.beginTransaction();
+        try {
+            session = FactoryConfiguration.getInstance().getSession();
+            transaction = session.beginTransaction();
 
-            Query<Admission_Coordinator> query = session.createQuery("FROM org.example.orm_final_corsework1.entity.Admission_Coordinator ac WHERE ac.admissionCoUsername = :admissionCoUsername", Admission_Coordinator.class);
+            // HQL query to find the Admin by adminUsername
+            Query<Admission_Coordinator> query = session.createQuery("FROM  org.example.orm_final_corsework1.entity.Admission_Coordinator ac WHERE ac.admissionCoUsername = :admissionCoUsername", Admission_Coordinator.class);
             query.setParameter("admissionCoUsername", admissionCoUsername);
 
             Admission_Coordinator admissionCoordinator = query.uniqueResult();
 
             if (admissionCoordinator != null) {
                 String dbPassword = admissionCoordinator.getAdmissionCoPassword();
-                System.out.println("Database password hash: " + dbPassword);
-                System.out.println("Entered password: " + admissionCoPassword);
 
+                // Assuming you're using BCrypt, you would compare with BCrypt
                 if (BCrypt.checkpw(admissionCoPassword, dbPassword)) {
-                    System.out.println("Password matched!");
                     navigateToAdmissionCoordinatorHomepage(root);
                 } else {
-                    System.out.println("Password mismatch!");
-                    new Alert(Alert.AlertType.ERROR, "Entered password is incorrect!").show();
+                    new Alert(Alert.AlertType.ERROR, "Sorry! Entered password is incorrect!").show();
                 }
             } else {
-                System.out.println("User not found!");
-                new Alert(Alert.AlertType.INFORMATION, "Entered userID can't be found!").show();
+                new Alert(Alert.AlertType.INFORMATION, "Sorry! Entered user ID can't be found!").show();
             }
 
             transaction.commit();
-
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            if (session != null) session.close();
+        }
 
     }
 
@@ -147,7 +149,6 @@ public class AdminCoordinatorDAOImpl implements AdminCoordinatorDAO {
         stage.setTitle("Dashboard Form");
     }
 
-//    sasassasasassssssssssssssssssssssssssssssssssssssssssss
 
     @Override
     public boolean isValidUserPassword(String adminUserID, String adminUsername) throws SQLException {
